@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 17th Birthday!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ff6fa5;
+    --purple:#8c5cf5;
+    --yellow:#ffd166;
+    --teal:#06d6a0;
+    --cream:#fff8f3;
+    --dark:#2d2a3d;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Poppins', sans-serif;
+    background:var(--cream);
+    color:var(--dark);
+    overflow-x:hidden;
+  }
+  h1,h2,.script{font-family:'Pacifico', cursive; font-weight:400;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; width:100%;
+    display:flex; justify-content:center; gap:30px;
+    padding:16px 10px; background:rgba(255,255,255,0.75);
+    backdrop-filter:blur(8px);
+    z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  }
+  nav a{
+    text-decoration:none; color:var(--dark); font-weight:600; font-size:14px;
+    letter-spacing:0.5px; padding:6px 12px; border-radius:20px; transition:0.3s;
+  }
+  nav a:hover{background:var(--pink); color:white;}
+
+  /* ---------- LANDING ---------- */
+  #landing{
+    height:100vh; min-height:600px; position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; overflow:hidden;
+    background:linear-gradient(160deg, #ffdde1, #fdbbc9 40%, #d9c2ff 100%);
+  }
+  #landing h1{
+    font-size:clamp(2.5rem, 8vw, 5.5rem);
+    color:var(--dark);
+    text-shadow:2px 2px 0 rgba(255,255,255,0.6);
+    z-index:2;
+  }
+  #landing .subtitle{
+    font-size:clamp(1.2rem,3vw,1.8rem);
+    margin-top:10px;
+    z-index:2;
+    font-weight:600;
+    color:var(--dark);
+  }
+  #landing .age-badge{
+    margin-top:30px;
+    background:var(--purple);
+    color:white;
+    font-size:1.8rem;
+    font-weight:700;
+    padding:14px 34px;
+    border-radius:50px;
+    box-shadow:0 8px 20px rgba(140,92,245,0.4);
+    z-index:2;
+    animation:pop 2s ease-in-out infinite;
+  }
+  @keyframes pop{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.06);}
+  }
+  .scroll-down{
+    position:absolute; bottom:30px; z-index:2;
+    font-size:14px; color:var(--dark); opacity:0.8;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .scroll-down span{
+    width:10px; height:10px; border-right:3px solid var(--dark); border-bottom:3px solid var(--dark);
+    transform:rotate(45deg); animation:bounce 1.6s infinite;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0) rotate(45deg); opacity:0.5;}
+    50%{transform:translateY(8px) rotate(45deg); opacity:1;}
+  }
+
+  /* balloons */
+  .balloon{
+    position:absolute; bottom:-200px; width:60px; height:75px; border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+    animation:rise linear infinite;
+    opacity:0.9;
+  }
+  .balloon::after{
+    content:''; position:absolute; bottom:-30px; left:50%; width:2px; height:40px; background:rgba(0,0,0,0.2);
+    transform:translateX(-50%);
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) translateX(0);}
+    50%{transform:translateY(-60vh) translateX(20px);}
+    100%{transform:translateY(-130vh) translateX(-20px);}
+  }
+
+  /* confetti */
+  .confetti-piece{
+    position:absolute; top:-10px; width:8px; height:14px; opacity:0.9;
+    animation:fall linear infinite;
+  }
+  @keyframes fall{
+    to{ transform: translateY(110vh) rotate(360deg); opacity:0.6;}
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.block{
+    padding:90px 20px 70px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .section-title{
+    text-align:center;
+    font-size:clamp(2rem,5vw,3rem);
+    color:var(--purple);
+    margin-bottom:10px;
+  }
+  .section-sub{
+    text-align:center;
+    color:#6b6880;
+    margin-bottom:45px;
+    font-size:1rem;
+  }
+
+  /* ---------- PHOTO WALL ---------- */
+  #photos{ background:var(--cream); }
+  .photo-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:22px;
+  }
+  .photo-card{
+    position:relative;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+    transform:rotate(var(--r,0deg));
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    background:white;
+    padding:10px 10px 40px;
+  }
+  .photo-card:hover{
+    transform:rotate(0deg) scale(1.04);
+    box-shadow:0 16px 32px rgba(0,0,0,0.2);
+    z-index:5;
+  }
+  .photo-card img{
+    width:100%; height:220px; object-fit:cover; border-radius:10px; display:block;
+    background:#eee6f9;
+  }
+  .photo-caption{
+    position:absolute; bottom:10px; left:0; right:0;
+    text-align:center; font-size:0.9rem; color:var(--dark); font-weight:600;
+  }
+  .photo-empty-msg{
+    text-align:center; color:#9a94b5; font-size:0.95rem; padding:30px;
+  }
+
+  /* ---------- QUIZ ---------- */
+  #quiz{ background:linear-gradient(180deg, #fdf0ff, #f3e8ff); }
+  .quiz-box{
+    background:white;
+    max-width:650px;
+    margin:0 auto;
+    border-radius:24px;
+    padding:36px 30px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.1);
+    min-height:340px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .quiz-progress{
+    font-size:0.85rem; color:#9a94b5; margin-bottom:18px; font-weight:600;
+  }
+  .quiz-question{
+    font-size:1.3rem; font-weight:600; margin-bottom:25px; color:var(--dark);
+  }
+  .quiz-options{ display:flex; flex-direction:column; gap:12px; }
+  .quiz-option{
+    text-align:left;
+    padding:14px 18px;
+    border:2px solid #e5def7;
+    border-radius:14px;
+    background:#faf8ff;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:1rem;
+    transition:0.25s;
+  }
+  .quiz-option:hover{ border-color:var(--purple); background:#f0e9ff;}
+  .quiz-option.correct{ background:#d8f7e9; border-color:var(--teal); color:#136a4c; font-weight:700;}
+  .quiz-option.wrong{ background:#ffe1e8; border-color:var(--pink); color:#9c1c40; font-weight:700;}
+  .quiz-option[disabled]{ cursor:default; }
+  .quiz-next{
+    margin-top:22px; align-self:flex-end;
+    background:var(--purple); color:white; border:none;
+    padding:12px 28px; border-radius:30px; font-weight:600; cursor:pointer;
+    font-size:0.95rem; transition:0.3s; opacity:0; pointer-events:none;
+  }
+  .quiz-next.show{ opacity:1; pointer-events:auto; }
+  .quiz-next:hover{ background:#7442e0; }
+  .quiz-result{ text-align:center; }
+  .quiz-result h3{ font-size:1.8rem; color:var(--purple); margin-bottom:12px; font-family:'Pacifico',cursive; font-weight:400;}
+  .quiz-result p{ color:#555; font-size:1.05rem; }
+  .restart-btn{
+    margin-top:20px; background:var(--teal); color:white; border:none;
+    padding:12px 26px; border-radius:30px; font-weight:600; cursor:pointer;
+  }
+
+  /* ---------- LETTER ---------- */
+  #letter{ background:var(--cream); }
+  .letter-paper{
+    max-width:700px;
+    margin:0 auto;
+    background:#fffdf8;
+    border-radius:4px;
+    padding:50px 45px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.12);
+    position:relative;
+    border-top:10px solid var(--pink);
+    white-space:pre-wrap;
+    line-height:1.8;
+    font-size:1.05rem;
+    color:#3a3650;
+  }
+  .letter-signature{
+    margin-top:30px;
+    font-family:'Pacifico', cursive;
+    font-size:1.6rem;
+    color:var(--purple);
+    text-align:right;
+  }
+
+  footer{
+    text-align:center; padding:30px; font-size:0.85rem; color:#9a94b5;
+  }
+
+  @media(max-width:600px){
+    nav{ gap:14px; }
+    nav a{ font-size:12px; padding:5px 8px; }
+    .letter-paper{ padding:35px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#landing">Home</a>
+  <a href="#photos">Photos</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#letter">Letter</a>
+</nav>
+
+<!-- ============= LANDING ============= -->
+<section id="landing">
+  <div id="confetti-container"></div>
+  <div id="balloon-container"></div>
+  <h1 id="landing-title">Happy Birthday!</h1>
+  <div class="subtitle" id="landing-subtitle"></div>
+  <div class="age-badge" id="age-badge">Turning 17 🎉</div>
+  <div class="scroll-down"><span></span>scroll for more</div>
+</section>
+
+<!-- ============= PHOTO WALL ============= -->
+<section id="photos" class="block">
+  <h2 class="section-title">Memory Wall</h2>
+  <p class="section-sub">A few of our favourite moments</p>
+  <div class="photo-grid" id="photo-grid"></div>
+</section>
+
+<!-- ============= QUIZ ============= -->
+<section id="quiz" class="block">
+  <h2 class="section-title">How Well Do You Know You?</h2>
+  <p class="section-sub">Test your knowledge!</p>
+  <div class="quiz-box" id="quiz-box"></div>
+</section>
+
+<!-- ============= LETTER ============= -->
+<section id="letter" class="block">
+  <h2 class="section-title">A Little Letter</h2>
+  <p class="section-sub">Just for you</p>
+  <div class="letter-paper" id="letter-text"></div>
+</section>
+
+<footer>Made with 💜 for your 17th birthday</footer>
+
+<script>
+/* =========================================================================
+   EDIT ME — everything you need to customise is below.
+   ========================================================================= */
+
+// 1) Name shown on the landing page
+const friendName = "Sam";
+
+// 2) Landing subtitle (shown under the big heading)
+const landingSubtitle = "You're the everything to my everything, have a lovely 17th!";
+
+// 3) PHOTOS — put your image files inside an "images" folder next to this
+//    file, then list the filenames + captions here. If a file is missing
+//    or misnamed, a placeholder will show in its place so you can spot it.
+const photos = [
+  { src: "images/IMG_3291.jpg", caption: "Best Friends Forever" },
+    { src: "images/IMG_3803.jpg", caption: "FLINT AND STEEEEL" },
+    { src: "images/IMG_4305.jpg", caption: "ballooons 4 eva" },
+    { src: "images/IMG_4326.jpg", caption: "MY BABYYYY" },
+    { src: "images/IMG_4434 copy.jpg", caption: "PILIP" },
+    { src: "images/IMG_5929.jpg", caption: "hehehehe" },
+    { src: "images/IMG_5990.jpg", caption: "λ & COAT - 18/7/45^2" },
+    { src: "images/IMG_7184.jpg", caption: "MUAH" },
+    { src: "images/IMG_7634.jpg", caption: "GANG GANG GANG" },
+    { src: "images/instc 2025-10-17 195256.629.jpg", caption: "ROMANCE" },
+    { src: "images/TZmbZzV.jpg", caption: "WE'RE IN SPACEEEE" },
+    { src: "images/IMG_7169.jpg", caption: "I love you pookie" }
+
+];
+
+// 4) QUIZ — add, remove, or edit questions. "correct" is the index
+//    (starting at 0) of the right answer in the "options" list.
+const quiz = [
+  {
+    question: "What's your favourite way to spend a weekend?",
+    options: ["Sleeping in", "Shopping", "Movie marathon", "bhk.co.kr"],
+    correct: 3
+  },
+  {
+    question: "Which year is our year?",
+    options: ["2020", "2021", "2022", "2023"],
+    correct: 1
+  },
+  {
+    question: "Which of these places will we (maybe, probably not) go to?",
+    options: ["Cairo", "Rome", "Bali", "Paris"],
+    correct: 0
+  },
+  {
+    question: "Which word best describes us?",
+    options: ["Balloons", "Parents to Luna", "the motha fuckin goats", "All of the above"],
+    correct: 3
+  },
+  {
+    question: "How old are you turning?",
+    options: ["15", "16", "17", "18"],
+    correct: 2
+  },
+  {
+    question: "Which of the following is our favourite inflatable object?",
+    options: ["Balloons", "the weird thing at gas stations", "Air Mattress", "Bouncy Castle"],
+    correct: 0
+  },
+  {
+    question: "And finally, you are my ...?",
+    options: ["Fire", "Love", "Balloons", "All of the above"],
+    correct: 3
+  }
+];
+
+// 5) LETTER — write your message. Use \n\n to start a new paragraph.
+const letterText =
+"Happy 17th birthday pookie!\n\n" +
+"Ever since Aadishree's birthday, we've been the motherfucking goats of the world. Nothing in the world can come close to how good we are at bestie-ing and zestie-ing and fuck-ing, of course. " + 
+"It's been the most glorious year and a half? ish? and I genuinely cannot wait to do the rest of my life with you. " + 
+"I know you know that I know that you know that ... I know that you know that I love you more than anything in the world, but I need you to know that you deserve it. " + 
+"You are the most brave, funny, real person I have ever known and will ever know. " + 
+"I know nothing will separate me from you and you from me. " + 
+"I know it's been rough for you the past couple of weeks, and I'm sorry you can't talk to me about it. " + 
+"You can but I know you won't, and for that, I wish there was something I could do. I miss you so much, and I know you're missing me more. " + 
+"I just need you to know, that we will always be the best, and we can do anything together, no matter what anyone tells us. " + 
+"(That was a lot of commas, probably an illegal sentence, but who gives a gaf). " + 
+"16 was rough to you, everybody knows that. But that's what it's all about right? 17 will be so much better." + 
+"I am going to try my hardest to be a part of every single moment of your life, however difficult that may be. " + 
+"Sam, I love you so much, I send you the biggest balloons ever, and I hope you have a good time. " + 
+"I'll see you soon, I can't wait to give you the biggest hug ever. \n\n" + 
+
+"I love you 2021 <3";
+
+const letterSignature = "COAT (bhk.co.uk) (your best friend)";
+
+/* =========================================================================
+   END OF EDITABLE SECTION — the code below makes everything work.
+   You shouldn't need to touch it, but it's commented in case you're curious.
+   ========================================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  safeRun("landing text", function () {
+    document.getElementById("landing-title").textContent = "Happy Birthday, " + friendName + "!";
+    document.getElementById("landing-subtitle").textContent = landingSubtitle;
+  });
+
+  safeRun("confetti", initConfetti);
+  safeRun("balloons", initBalloons);
+  safeRun("photo wall", initPhotoWall);
+  safeRun("quiz", initQuiz);
+  safeRun("letter", initLetter);
+
+});
+
+// Wrap each feature so one failure can never block the others from rendering.
+function safeRun(label, fn) {
+  try {
+    fn();
+  } catch (err) {
+    console.error("Error while setting up " + label + ":", err);
+  }
+}
+
+/* ---------------- Confetti ---------------- */
+function initConfetti() {
+  const container = document.getElementById("confetti-container");
+  if (!container) return;
+  const colors = ["#ff6fa5", "#8c5cf5", "#ffd166", "#06d6a0", "#ff9f1c"];
+  const count = 60;
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+    piece.style.left = Math.random() * 100 + "%";
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (4 + Math.random() * 4) + "s";
+    piece.style.animationDelay = (Math.random() * 5) + "s";
+    piece.style.transform = "rotate(" + Math.floor(Math.random() * 360) + "deg)";
+    container.appendChild(piece);
+  }
+}
+
+/* ---------------- Balloons ---------------- */
+function initBalloons() {
+  const container = document.getElementById("balloon-container");
+  if (!container) return;
+  const colors = ["#ff6fa5", "#8c5cf5", "#ffd166", "#06d6a0"];
+  const count = 10;
+  for (let i = 0; i < count; i++) {
+    const b = document.createElement("div");
+    b.className = "balloon";
+    b.style.left = Math.random() * 90 + "%";
+    b.style.background = colors[Math.floor(Math.random() * colors.length)];
+    b.style.animationDuration = (10 + Math.random() * 8) + "s";
+    b.style.animationDelay = (Math.random() * 10) + "s";
+    container.appendChild(b);
+  }
+}
+
+/* ---------------- Photo Wall ---------------- */
+function initPhotoWall() {
+  const grid = document.getElementById("photo-grid");
+  if (!grid) return;
+
+  if (!Array.isArray(photos) || photos.length === 0) {
+    const msg = document.createElement("p");
+    msg.className = "photo-empty-msg";
+    msg.textContent = "Add photos to the \"photos\" list in the code to fill this wall!";
+    grid.appendChild(msg);
+    return;
+  }
+
+  // Simple inline SVG placeholder used automatically if a photo fails to load,
+  // so a missing/misnamed file never leaves a blank gap or breaks the page.
+  const placeholder =
+    "data:image/svg+xml;utf8," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300">' +
+      '<rect width="100%" height="100%" fill="#eee6f9"/>' +
+      '<text x="50%" y="50%" font-family="Poppins, sans-serif" font-size="18" ' +
+      'fill="#8c5cf5" text-anchor="middle" dominant-baseline="middle">Photo not found</text>' +
+      '</svg>'
+    );
+
+  photos.forEach(function (photo, index) {
+    const card = document.createElement("div");
+    card.className = "photo-card";
+    const rotation = (index % 2 === 0 ? -1 : 1) * (2 + (index % 3) * 2);
+    card.style.setProperty("--r", rotation + "deg");
+
+    const img = document.createElement("img");
+    img.src = photo.src;
+    img.alt = photo.caption || ("Photo " + (index + 1));
+    img.loading = "lazy";
+    img.onerror = function () {
+      img.onerror = null;
+      img.src = placeholder;
+    };
+
+    const caption = document.createElement("div");
+    caption.className = "photo-caption";
+    caption.textContent = photo.caption || "";
+
+    card.appendChild(img);
+    card.appendChild(caption);
+    grid.appendChild(card);
+  });
+}
+
+/* ---------------- Quiz ---------------- */
+function initQuiz() {
+  const box = document.getElementById("quiz-box");
+  if (!box) return;
+
+  if (!Array.isArray(quiz) || quiz.length === 0) {
+    box.innerHTML = '<p class="photo-empty-msg">Add questions to the "quiz" list in the code!</p>';
+    return;
+  }
+
+  let current = 0;
+  let score = 0;
+
+  renderQuestion();
+
+  function renderQuestion() {
+    const q = quiz[current];
+    box.innerHTML = "";
+
+    const progress = document.createElement("div");
+    progress.className = "quiz-progress";
+    progress.textContent = "Question " + (current + 1) + " of " + quiz.length;
+
+    const question = document.createElement("div");
+    question.className = "quiz-question";
+    question.textContent = q.question;
+
+    const options = document.createElement("div");
+    options.className = "quiz-options";
+
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "quiz-next";
+    nextBtn.textContent = current === quiz.length - 1 ? "See Results" : "Next";
+    nextBtn.addEventListener("click", function () {
+      current++;
+      if (current < quiz.length) {
+        renderQuestion();
+      } else {
+        renderResult();
+      }
+    });
+
+    q.options.forEach(function (optionText, i) {
+      const btn = document.createElement("button");
+      btn.className = "quiz-option";
+      btn.textContent = optionText;
+      btn.addEventListener("click", function () {
+        const allButtons = options.querySelectorAll(".quiz-option");
+        allButtons.forEach(function (b) { b.disabled = true; });
+
+        if (i === q.correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          allButtons[q.correct].classList.add("correct");
+        }
+        nextBtn.classList.add("show");
+      });
+      options.appendChild(btn);
+    });
+
+    box.appendChild(progress);
+    box.appendChild(question);
+    box.appendChild(options);
+    box.appendChild(nextBtn);
+  }
+
+  function renderResult() {
+    box.innerHTML = "";
+    const result = document.createElement("div");
+    result.className = "quiz-result";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "You scored " + score + " / " + quiz.length + "!";
+
+    const message = document.createElement("p");
+    message.textContent = getResultMessage(score, quiz.length);
+
+    const restart = document.createElement("button");
+    restart.className = "restart-btn";
+    restart.textContent = "Try Again";
+    restart.addEventListener("click", function () {
+      current = 0;
+      score = 0;
+      renderQuestion();
+    });
+
+    result.appendChild(heading);
+    result.appendChild(message);
+    result.appendChild(restart);
+    box.appendChild(result);
+  }
+
+  function getResultMessage(score, total) {
+    const ratio = score / total;
+    if (ratio === 1) return "Perfect score! You truly are Sam! I'm glad :)";
+    if (ratio >= 0.5) return "Not bad! You know yourself pretty well.";
+    return "Well... there's always room to learn more about yourself ig?";
+  }
+}
+
+/* ---------------- Letter ---------------- */
+function initLetter() {
+  const el = document.getElementById("letter-text");
+  if (!el) return;
+  el.textContent = letterText + "\n";
+  const sig = document.createElement("div");
+  sig.className = "letter-signature";
+  sig.textContent = letterSignature;
+  el.appendChild(sig);
+}
+</script>
+
+</body>
+</html>
